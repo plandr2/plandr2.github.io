@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>اختبار الصداقة مع إعلان جوجل</title>
+
+  <!-- إثبات ملكية جوجل -->
+  <meta name="google-site-verification" content="YRqMgFGcUxicKtzz4MmVsAnKjVrVyCzKovWWLcIriq4" />
+  <!-- ربط حساب AdSense -->
+  <meta name="google-adsense-account" content="ca-pub-4225211442266061">
+
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background-color: #111;
+      color: #fff;
+      text-align: center;
+      margin: 0; padding: 0;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+      background: #1e1e1e;
+      margin-top: 50px;
+      border-radius: 15px;
+      box-shadow: 0 0 15px rgba(255,255,255,0.1);
+    }
+    h1 { color: #bb86fc; }
+    #showResultsBtn {
+      background-color: #03dac6;
+      color: #000;
+      border-radius: 10px;
+      padding: 10px 20px;
+      margin-bottom: 15px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    #showResultsBtn:hover {
+      background-color: #01bfa8;
+      color: #fff;
+    }
+    #question { font-size: 1.3em; margin-bottom: 20px; }
+    input[type="text"] {
+      padding: 10px;
+      width: 80%;
+      border-radius: 10px;
+      border: 1px solid #444;
+      background-color: #222;
+      color: #fff;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 15px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      background-color: #bb86fc;
+      color: #000;
+      border-radius: 10px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    button:hover {
+      background-color: #9c63e6;
+      color: #fff;
+    }
+    .answer-btn {
+      display: block;
+      margin: 10px auto;
+      padding: 10px;
+      width: 80%;
+      background-color: #333;
+      color: #fff;
+      border: 1px solid #555;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .answer-btn:hover {
+      background-color: #444;
+    }
+    .hidden { display: none; }
+    #share input {
+      width: 80%;
+      padding: 8px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #444;
+      background-color: #222;
+      color: #fff;
+      user-select: all;
+    }
+    #share button {
+      padding: 10px 15px;
+      border-radius: 8px;
+      background-color: #03dac6;
+      color: #000;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    #share button:hover { background-color: #01bfa8; }
+    #participants {
+      margin-top: 30px;
+      background-color: #222;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: right;
+    }
+    #participants h3 {
+      margin-bottom: 10px;
+      color: #03dac6;
+    }
+    #participantsList {
+      list-style: none;
+      padding: 0;
+      max-height: 150px;
+      overflow-y: auto;
+      text-align: right;
+    }
+    #participantsList li {
+      background-color: #333;
+      margin: 5px 0;
+      padding: 8px 12px;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: 600;
+    }
+    .adsbygoogle {
+      display: block;
+      margin: 20px auto;
+    }
+  </style>
+
+  <!-- كود إعلان جوجل -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4225211442266061"
+    crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>🌟 اختبار الصداقة 🌟</h1>
+
+    <!-- إعلان جوجل -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-4225211442266061"
+         data-ad-slot="6569650843"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+    <button id="showResultsBtn">عرض نتائج المشاركين</button>
+
+    <div id="nameInputSection">
+      <p>أدخل اسمك لتبدأ الاختبار:</p>
+      <input type="text" id="username" placeholder="اسمك هنا" autocomplete="off" />
+      <button id="startBtn">ابدأ الاختبار</button>
+    </div>
+
+    <div id="quiz" class="hidden">
+      <div id="question"></div>
+      <div id="answers"></div>
+    </div>
+
+    <div id="result" class="hidden"></div>
+
+    <div id="share" class="hidden">
+      <p>📢 شارك اختبار الصداقة مع أصحابك:</p>
+      <input type="text" id="shareLink" readonly />
+      <button id="copyBtn">📋 نسخ الرابط</button>
+    </div>
+
+    <div id="participants" class="hidden">
+      <h3>👥 الأشخاص الذين شاركوا في الاختبار:</h3>
+      <ul id="participantsList"></ul>
+    </div>
+  </div>
+
+<script>
+const questions = [
+  {question:"كم سنة نعرف على بعض؟",answers:["أقل من سنة","1-3 سنوات","أكثر من 3 سنوات"],correct:2},
+  {question:"هل تعرف عمري؟",answers:["أكيد!","ما أعرف","لا"],correct:0},
+  {question:"هل احب الرقص؟",answers:["نعم","شوي","لا"],correct:0},
+  {question:"هل تعرف هواياتي المفضلة؟",answers:["نعم","بعضها","لا"],correct:0},
+  {question:"هل تعرف مشروبي",answers:["نعم","غير متاكد","لا "],correct:0},
+  {question:"هل تكون معاي وقت ضيقتي؟",answers:["نعم","أحيانًا","لا"],correct:0},
+  {question:"هل تعرف أكلتي المفضلة؟",answers:["نعم","غير متاكد","لا"],correct:0},
+  {question:"هل تحب تقضي وقت فراغك معي؟",answers:["نعم","شوي","لا"],correct:0},
+  {question:"هل تشاركني أسرارك؟",answers:["نعم","أحيانًا","لا"],correct:0},
+  {question:"وش تصنف علاقتنا؟",answers:["حب","صداقة","ولاشي"],correct:0}
+];
+
+let currentQuestion = 0;
+let score = 0;
+let username = "";
+
+function startQuiz(){
+  const input=document.getElementById("username");
+  const nameVal=input.value.trim();
+  if(!nameVal){
+    alert("يرجى إدخال اسمك للبدء");
+    return;
+  }
+  username=nameVal;
+  currentQuestion=0; score=0;
+  document.getElementById("nameInputSection").classList.add("hidden");
+  document.getElementById("quiz").classList.remove("hidden");
+  document.getElementById("result").classList.add("hidden");
+  document.getElementById("share").classList.add("hidden");
+  document.getElementById("participants").classList.add("hidden");
+  showQuestion();
+}
+
+function showQuestion(){
+  const q=questions[currentQuestion];
+  document.getElementById("question").textContent=`السؤال ${currentQuestion+1}: ${q.question}`;
+  const answersDiv=document.getElementById("answers");
+  answersDiv.innerHTML="";
+  q.answers.forEach((answer,index)=>{
+    const btn=document.createElement("button");
+    btn.textContent=answer;
+    btn.className="answer-btn";
+    btn.onclick=()=>{
+      if(index===q.correct)score++;
+      nextQuestion();
+    };
+    answersDiv.appendChild(btn);
+  });
+}
+
+function nextQuestion(){
+  currentQuestion++;
+  if(currentQuestion<questions.length){
+    showQuestion();
+  }else{
+    showResult();
+  }
+}
+
+function showResult(){
+  document.getElementById("quiz").classList.add("hidden");
+  const resultDiv=document.getElementById("result");
+  resultDiv.classList.remove("hidden");
+
+  const percent=Math.round((score/questions.length)*10);
+  let message="";
+  if(percent>=8){
+    message=`🎉 مبروك ${username}! نتيجتك: ${percent} من 10. احلا صديق!`;
+  }else if(percent>=5){
+    message=`😊 ${username}, نتيجتك: ${percent} من 10. صداقتنا جيدة ولكن لازم نقرب لبعض أكثر!`;
+  }else{
+    message=`😕 ${username}, نتيجتك: ${percent} من 10. نتعرف اكثر وافضل!`;
+  }
+  resultDiv.textContent=message;
+
+  addParticipant(username,percent);
+  displayParticipants();
+
+  const shareDiv=document.getElementById("share");
+  const shareLink=document.getElementById("shareLink");
+  shareLink.value=window.location.href;
+  shareDiv.classList.remove("hidden");
+  document.getElementById("participants").classList.remove("hidden");
+}
+
+function addParticipant(name,score){
+  let participants=JSON.parse(localStorage.getItem("participants")||"[]");
+  const index=participants.findIndex(p=>p.name===name);
+  if(index===-1){
+    participants.push({name:name,score:score});
+  }else{
+    if(score>participants[index].score){
+      participants[index].score=score;
+    }
+  }
+  localStorage.setItem("participants",JSON.stringify(participants));
+}
+
+function displayParticipants(){
+  const participantsList=document.getElementById("participantsList");
+  participantsList.innerHTML="";
+  let participants=JSON.parse(localStorage.getItem("participants")||"[]");
+  participants.forEach(p=>{
+    const li=document.createElement("li");
+    li.textContent=`${p.name} — النتيجة: ${p.score} من 10`;
+    participantsList.appendChild(li);
+  });
+}
+
+function showAllResults(){
+  let participants=JSON.parse(localStorage.getItem("participants")||"[]");
+  if(participants.length===0){
+    alert("لا يوجد مشاركون حتى الآن.");
+    return;
+  }
+  let resultsText="📋 نتائج المشاركين:\n\n";
+  participants.forEach(p=>{
+    resultsText+=`- ${p.name}: ${p.score} من 10\n`;
+  });
+  alert(resultsText);
+}
+
+function copyLink(){
+  const shareLink=document.getElementById("shareLink");
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(shareLink.value).then(() => {
+      alert("✅ تم نسخ الرابط! أرسله لأصدقائك 😄");
+    }, () => {
+      fallbackCopy();
+    });
+  } else {
+    fallbackCopy();
+  }
+  function fallbackCopy(){
+    shareLink.select();
+    shareLink.setSelectionRange(0, 99999);
+    document.execCommand("copy");
+    alert("✅ تم نسخ الرابط! أرسله لأصدقائك 😄");
+  }
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+  document.getElementById("startBtn").addEventListener("click", startQuiz);
+  document.getElementById("showResultsBtn").addEventListener("click", showAllResults);
+  document.getElementById("copyBtn").addEventListener("click", copyLink);
+});
+</script>
+
+</body>
+</html>
